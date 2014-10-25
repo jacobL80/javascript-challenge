@@ -45,12 +45,6 @@ function onReady () {
 
 function onSubmit(evt) {
     var valid = validateForm(this);
-    /*if (!valid) {
-        var errMsg = document.getElementById('error-message');
-        errMsg.innerHTML = 'Please provide values for the required fields!';
-        errMsg.style.display = 'block';
-    }*/
-
     if (!valid && evt.preventDefault) {
         evt.preventDefault();
     }
