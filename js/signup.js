@@ -86,7 +86,8 @@ function validateRequiredField(field) {
     if (field.name === "birthdate") {
     	if (calculateAge(field.value) < 13) {
 		    document.getElementById("birthdateMessage").innerHTML = ("You must be at least 13 years old!");
-		}
+		    field.className = 'form-control invalid-field';
+        }
     }
     if (field.name === "zip") {
     	var zipRegExp = new RegExp('^\\d{5}$');
