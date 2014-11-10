@@ -14,8 +14,8 @@ function onReady () {
     for (idx = 0; idx < usStates.length; ++idx) {
         option = document.createElement('option');
         state = usStates[idx];
-        option.value = state.name;
-        option.innerHTML = state.code;
+        option.value = state.code;
+        option.innerHTML = state.name;
         usStatesSelect.appendChild(option);
     }
 
@@ -54,11 +54,9 @@ function onSubmit(evt) {
 }
 
 function validateForm(form) {
+    var requiredFields = ['firstName', 'lastName', 'address1', 'city', 'state', 'zip', 'birthdate'];
 	if (occupation.value === "other") {
-        var requiredFields = ['firstName', 'lastName', 'address1', 'city', 'state', 'zip', 'birthdate', 'occupationOther'];
-    }
-    else {
-		var requiredFields = ['firstName', 'lastName', 'address1', 'city', 'state', 'zip', 'birthdate'];
+       requiredFields.push('occupationOther');
     }
     var idx;
     var valid = true;
@@ -66,10 +64,6 @@ function validateForm(form) {
     for (idx = 0; idx < requiredFields.length; ++idx) {
         valid &= validateRequiredField(form.elements[requiredFields[idx]]);
     }
-    document.addEventListener('change', function() {
-		
-    });
-    
     return valid;
 }
 
@@ -87,13 +81,21 @@ function validateRequiredField(field) {
     	if (calculateAge(field.value) < 13) {
 		    document.getElementById("birthdateMessage").innerHTML = ("You must be at least 13 years old!");
 		    field.className = 'form-control invalid-field';
+            valid = false;
+        } else {
+            field.className = 'form-control';
+            valid = true;
+            document.getElementById("birthdateMessage").innerHTML = ("");
         }
     }
     if (field.name === "zip") {
     	var zipRegExp = new RegExp('^\\d{5}$');
     	if (!zipRegExp.test(field.value)) {
     		field.className = 'form-control invalid-field';
-    	}
+            valid = false;
+    	} else {
+            valid = true;
+        }
     }
     return valid;
 }
